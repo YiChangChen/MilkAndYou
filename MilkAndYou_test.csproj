@@ -225,26 +225,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Chibi Mummy\Misc\Scripts\buttonControl_script.cs" />
-    <Compile Include="Assets\Chibi Mummy\Misc\Scripts\CharMovement.cs" />
     <Compile Include="Assets\Script\Camera\CameraControl.cs" />
+    <Compile Include="Assets\Script\Canvas\Button\RunBtnControl.cs" />
+    <Compile Include="Assets\Script\Canvas\Joystick\FixedJoystickHandler.cs" />
+    <Compile Include="Assets\Script\Canvas\Joystick\ScrollCircle.cs" />
+    <Compile Include="Assets\Script\Canvas\RunPowerBar.cs" />
+    <Compile Include="Assets\Script\Enemy\Chibi Mummy\Misc\Scripts\buttonControl_script.cs" />
+    <Compile Include="Assets\Script\Enemy\Chibi Mummy\Misc\Scripts\CharMovement.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyAttack.cs" />
     <Compile Include="Assets\Script\Enemy\PlayerTracking.cs" />
-    <Compile Include="Assets\Script\Joystick\FixedJoystickHandler.cs" />
-    <Compile Include="Assets\Script\Joystick\ScrollCircle.cs" />
+    <Compile Include="Assets\Script\Milk\TakeMilk.cs" />
     <Compile Include="Assets\Script\Player\CheckforGround.cs" />
     <Compile Include="Assets\Script\Player\Moving.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
-    <Compile Include="Assets\Script\RunBtnControl.cs" />
-    <Compile Include="Assets\Script\RunPowerBar.cs" />
-    <Compile Include="Assets\Script\SkillBtnEvent.cs" />
-    <Compile Include="Assets\Script\TakeMilk.cs" />
     <Compile Include="Assets\TestScript\MoveControl.cs" />
     <Compile Include="Assets\TestScript\SimpleJoystick.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Chibi Mummy\readme.txt" />
     <None Include="Assets\Julien Tonsuso\Modular Fantasy Bridges\README.txt" />
+    <None Include="Assets\Script\Enemy\Chibi Mummy\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Moving : MonoBehaviour {
   
@@ -8,29 +9,48 @@ public class Moving : MonoBehaviour {
     public class AnimatorParameters
     {
         public string walk;
-        //public string Horizotal;
-        //public string Vertical;
     }
-    [System.Serializable]
-    public class MoveParameters
-    {
-        public float speed = 2.5f;
-    }
-
     public Animator target;
-    //public float speed = 2.5f;
     public AnimatorParameters parameters;
-    public MoveParameters MovingParameters;
+    public GameObject RunBtn;
+    public Slider slider;
+    RunPowerBar RunPowerBar;
+    RunBtnControl RunBtnControl;
+
+    [Header("目前速度")]
+    public float NowSpeed;
+    [Header("跑步速度")]
+    public float RunSpeed;
+    [Header("走路速度")]
+    public float WalkSpeed;
+    [Header("消耗體力")]
+    public int ConsumptionPower;
+    [Header("回復體力")]
+    public int AddPower;
 
     private Vector3 direction;
     private Coroutine cououtine;
 
+    // Use this for initialization
+    void Start()
+    {
+        RunPowerBar = slider.GetComponent<RunPowerBar>();
+        RunBtnControl = RunBtn.GetComponent<RunBtnControl>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Run();
+    }
+
+
     private IEnumerator Move()
     {
         while(true)
-        {        
+        {
             this.target.transform.LookAt(new Vector3(this.target.transform.position.x - this.direction.y*60, this.target.transform.position.y, this.target.transform.position.z + this.direction.x * 60));
-            this.target.transform.Translate(Vector3.forward * Time.deltaTime * MovingParameters.speed);
+            this.target.transform.Translate(Vector3.forward * Time.deltaTime * NowSpeed);
             yield return null;
         }
     }
@@ -51,12 +71,20 @@ public class Moving : MonoBehaviour {
         this.direction = direction;
     }
 
-    // Use this for initialization
-    void Start () {
+    void Run()
+    {
+        if (RunBtnControl.runBtnParameters.isDown && slider.value > 0)
+        {
+            NowSpeed = RunSpeed;
+            RunPowerBar.SetPower(ConsumptionPower);
+            target.SetBool("run", true);
+        }
+        else
+        {
+            NowSpeed = WalkSpeed;
+            RunPowerBar.SetPower(AddPower);
+            target.SetBool("run", false);
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-    }
 }

@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (damage == true)
+        if (damage)
         {
             animator.SetBool("damage", true);
         }
@@ -29,7 +29,6 @@ public class PlayerHealth : MonoBehaviour {
             animator.SetBool("damage", false);
         }
         damage = false;
-
 	}
 
     public void TakeDamage(int amount)

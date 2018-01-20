@@ -4,52 +4,67 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour {
 
-    public int attackDamage = 10;
-    public float timeBetweenAttack = 0.5f;
     public GameObject player;
     public Animator animator;
-    PlayerHealth PlayerHealth;
-
-    public bool playertInRange;
+    PlayerHealth playerHealth;
+    PlayerTracking playerTracking;
+ 
+    //public bool playertInRange;
     public float timer;
 
+    [Header("攻擊間距時間")]
+    public float timeBetweenAttack = 1f;
+    [Header("攻擊傷害")]
+    public int attackDamage = 10;
 
+    public bool isAttack;
 
     // Use this for initialization
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
-        PlayerHealth = player.GetComponent<PlayerHealth>();
+        playerHealth = player.GetComponent<PlayerHealth>();
+        playerTracking = this.GetComponent<PlayerTracking>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        timer += Time.deltaTime;
-		if(timer > timeBetweenAttack && playertInRange)
+        if(playerTracking.attackRange.playertInRange)
         {
-            Attack();
+            //isAttack = true;
+            animator.SetBool("attack", true);
+            timer += Time.deltaTime;
+            if (timer >= timeBetweenAttack )
+            {
+                Attack();
+            }
+            else
+            {
+                //isAttack = false;
+                animator.SetBool("attack", false);
+            }
         }
-	}
+        //animator.SetBool("attack", isAttack);
+        //if(timer < timeBetweenAttack)
+        //{
+        //    animator.SetBool("attack", false);
+        //}
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject== player)
-        {
-            playertInRange = true;
-        }
+        //if (timer > timeBetweenAttack && playerTracking.attackRange.playertInRange)
+        //{
+        //    Attack();
+        //}
+        //else
+        //{
+        //    animator.SetBool("attack", false);
+        //}
     }
-    void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject == player)
-        {
-            playertInRange = false;
-        }
-    }
+
     void Attack()
     {
         timer = 0.0f;
-        if(PlayerHealth.currentHealth > 0)
+        if (playerHealth.currentHealth > 0)
         {
-            PlayerHealth.TakeDamage(attackDamage);
+            playerHealth.TakeDamage(attackDamage);
         }
     }
 }
